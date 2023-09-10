@@ -7,7 +7,6 @@ import os
 
 # Stock data
 
-stock_symbols = ['AAPL', 'GOOGL', 'MSFT', 'AMZN','NVDA','TSLA','META','HSBC','TSM','XOM','JNJ']
 window_size = 52
 stock_data_dict = {}
 avg_price_before_event_dict = {}
@@ -17,7 +16,7 @@ std_dev_after_event_dict = {}
 csv_folder = 'csv_data_events'
 csv_files = [f for f in os.listdir(csv_folder) if f.endswith('.csv')]
 for csv_file in csv_files:
-    # Extract the symbol from the CSV filename (assuming the filename format is "{symbol}_data.csv")
+    # Extract the symbol from the CSV filename 
     symbol = os.path.splitext(csv_file)[0].split('_')[0]
     
     # Load the CSV data into a DataFrame
@@ -47,14 +46,19 @@ server = app.server
 
 # Define the layout of the app
 app.layout = html.Div([
-    html.H1("Stock Data Visualization"),
-    
-    dcc.Tabs(id="tabs", value='tab-1', children=[
-        dcc.Tab(label='Event Data', value='tab-1'),
-        dcc.Tab(label='Topic 2', value='tab-2'),  # Add more tabs for different topics
-        dcc.Tab(label='Topic 3', value='tab-3'),  # Add more tabs for different topics
+    html.H1("Stock Data Analysis Dashboard"),
+
+    dcc.Tabs(id="tabs", value='home', children=[
+        dcc.Tab(label='Home', value='home'),
+        dcc.Tab(label='Correlation Analysis', value='correlation'),
+        dcc.Tab(label='Economic Indicators', value='economic'),
+        dcc.Tab(label='International Correlation', value='international'),
+        dcc.Tab(label='Sentiment Analysis', value='sentiment'),
+        dcc.Tab(label='Sector Performance', value='sector'),
+        dcc.Tab(label='Sector Indicator', value='sector_indicator'),
+        dcc.Tab(label='Event Analysis', value='event_analysis')  
     ]),
-    
+
     html.Div(id='tab-content'),
 ])
 
@@ -64,8 +68,17 @@ app.layout = html.Div([
     Input('tabs', 'value')
 )
 def render_content(tab):
-    if tab == 'tab-1':
+    if tab == 'home':
         return html.Div([
+            html.H2("Welcome to the Stock Data Analysis Dashboard by the Group Trend Researchers", style={'fontSize': 30}),
+            html.P("This dashboard allows you to explore various aspects of stock market data and answer different research questions.",style={'fontSize': 22}),
+            html.P("Use the tabs above to navigate to different sections of the dashboard.",style={'fontSize': 22}),
+    ])
+    elif tab == 'event_analysis':
+        return html.Div([
+            # Content for Event Analysis
+            html.H2("Event Analysis"),
+            html.P("Analyze how specific events impact stock prices."),
             # Input for selecting the event date
             dcc.DatePickerSingle(
                 id='event-date-picker',
@@ -77,7 +90,7 @@ def render_content(tab):
                 id='stock-dropdown',
                 options=[{'label': symbol, 'value': symbol} for symbol in stock_data_dict.keys()],
                 multi=True,
-                value=['AAPL']  # Default selected stocks
+                value=['AAPL','AMZN','GOOGL','META','MSFT']  # Default selected stocks
             ),
             
             # Dropdown for selecting plot type 
@@ -97,31 +110,24 @@ def render_content(tab):
             
             # Shared text for all charts
             html.Div([
-                html.P("This is some shared text for all charts in this tab.", style={'fontSize': 18}),
+                html.P("Research Question: How do specific events (like elections, major geopolitical events, product launches, earnings reports) impact stock prices?\
+                       The default date selected is the start of the covid-19 lockdowns but the date can be changed to look at whatever date interests you", style={'fontSize': 30}),
             ]),
             
             # Unique text for the Bar Chart
-            html.Div(id='bar-chart-text', style={'fontSize': 18}),
+            html.Div(id='bar-chart-text', style={'fontSize': 22}),
             
             # Unique text for the Volatility Chart
-            html.Div(id='volatility-chart-text', style={'fontSize': 18}),
+            html.Div(id='volatility-chart-text', style={'fontSize': 22}),
             
             # Unique text for the Line Chart
-            html.Div(id='line-chart-text', style={'fontSize': 18}),
+            html.Div(id='line-chart-text', style={'fontSize': 22}),
             
             # Unique text for the Cumulative Returns Chart
-            html.Div(id='returns-chart-text', style={'fontSize': 18}),
+            html.Div(id='returns-chart-text', style={'fontSize': 22}),
            
         ])
             
-    elif tab == 'tab-2':
-        return html.Div([
-            # Content for Topic 2
-        ])
-    elif tab == 'tab-3':
-        return html.Div([
-            # Content for Topic 3
-        ])
     else:
         return html.Div([])  # Handle unsupported tabs
 
@@ -191,7 +197,7 @@ def update_chart(selected_stocks, plot_type, selected_event_date):
                 'yaxis': {'title': 'Average Adjusted Closing Price ($)'}
             }
         }
-        bar_chart_text = "This is unique text for the Bar Chart."
+        bar_chart_text = "The Bar Chart displays the average adjusted closing prices of selected stocks one year before and after a specified event date. It provides a visual comparison of how stock prices changed around the event."
         return figure, bar_chart_text, "", "", ""
     elif plot_type == 'line':
         # Create a Plotly line chart
@@ -233,7 +239,7 @@ def update_chart(selected_stocks, plot_type, selected_event_date):
                 'shapes': shapes  # Include the shapes for vertical line
             }
         }
-        line_chart_text = "This is unique text for the Line Chart."
+        line_chart_text = "The Line Chart shows the historical adjusted closing prices of selected stocks over one year before and after the specified event date. It helps visualize the stock price trends leading up to and following the event."
         return figure, "", "", line_chart_text, ""
     
     elif plot_type == 'volatility':
@@ -279,7 +285,7 @@ def update_chart(selected_stocks, plot_type, selected_event_date):
                 'shapes': shapes  # Include the shapes for vertical line
             }
         }
-        volatility_chart_text = "This is unique text for the Volatility Chart."
+        volatility_chart_text = "The Volatility Chart illustrates the standard deviation of adjusted closing prices for selected stocks before and after the event. It indicates the level of price volatility in the stock market during this period."
         return figure, "", volatility_chart_text, "", ""
     
     elif plot_type == 'returns':
@@ -322,7 +328,7 @@ def update_chart(selected_stocks, plot_type, selected_event_date):
                 'shapes': shapes  # Include the shapes for vertical line
             }
         }
-        returns_chart_text = "This is unique text for the Cumulative Returns Chart."
+        returns_chart_text = "The Cumulative Returns Chart displays the cumulative returns of selected stocks over one year before and after the event. It helps assess the overall performance and growth of the stocks relative to their initial values."
         return figure, "", "", "", returns_chart_text
     else:
         # Handle unsupported plot types
