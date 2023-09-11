@@ -3,8 +3,6 @@ from dash import dcc, html, Input, Output
 import pandas as pd
 import plotly.graph_objects as go
 from data import stock_data_dict
-from app import app
-
 
 # Function to calculate average prices and standard deviations
 def calculate_metrics(data, event_date):
@@ -25,17 +23,6 @@ def calculate_metrics(data, event_date):
         'std_dev_after_event': std_dev_after_event
     }
 
-# Callback to update the chart and text based on user selections
-@app.callback(
-    Output('selected-chart', 'figure'),
-    Output('bar-chart-text', 'children'),
-    Output('volatility-chart-text', 'children'),
-    Output('line-chart-text', 'children'),
-    Output('returns-chart-text', 'children'),
-    Input('stock-dropdown', 'value'),
-    Input('plot-type-dropdown', 'value'),
-    Input('event-date-picker', 'date')
-)
 def update_chart(selected_stocks, plot_type, selected_event_date):
     event_date = pd.to_datetime('2020-03-15')
     if selected_event_date:
