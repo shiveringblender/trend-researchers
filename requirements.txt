@@ -1,4 +1,4 @@
-dash
-pandas
+dash==2.13.0
+pandas==2.1.0
 gunicorn
-plotly
+plotly==5.16.1

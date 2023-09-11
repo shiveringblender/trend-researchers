@@ -2,11 +2,9 @@ import dash
 from dash import dcc, html, Input, Output
 import pandas as pd
 import plotly.graph_objects as go
-
-
 from data import stock_data_dict
-from app import get_app
-app= get_app()
+from app import app
+
 
 # Function to calculate average prices and standard deviations
 def calculate_metrics(data, event_date):

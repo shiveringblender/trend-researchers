@@ -1,7 +1,6 @@
 import dash
 from dash import dcc, html
 import pandas as pd
-# Import stock_data_dict 
 from data import stock_data_dict
 
 def get_layout():

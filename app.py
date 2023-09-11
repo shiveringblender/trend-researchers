@@ -30,9 +30,6 @@ from data import stock_data_dict
 app = dash.Dash(__name__, suppress_callback_exceptions=True)
 server = app.server
 
-def get_app():
-    return app
-
 
 
 # Define the layout of the app
