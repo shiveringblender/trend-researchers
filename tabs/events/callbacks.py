@@ -5,7 +5,8 @@ import plotly.graph_objects as go
 
 
 from data import stock_data_dict
-from app import app
+from app import get_app
+app= get_app()
 
 # Function to calculate average prices and standard deviations
 def calculate_metrics(data, event_date):

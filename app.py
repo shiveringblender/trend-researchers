@@ -3,7 +3,6 @@ from dash import dcc, html, Input, Output, State
 import pandas as pd
 import plotly.express as px
 import plotly.graph_objects as go
-import os
 
 # Import layout and callbacks for each tab
 from tabs.events import layout as events_layout
@@ -30,6 +29,10 @@ from data import stock_data_dict
 # Initialize the Dash app
 app = dash.Dash(__name__, suppress_callback_exceptions=True)
 server = app.server
+
+def get_app():
+    return app
+
 
 
 # Define the layout of the app
