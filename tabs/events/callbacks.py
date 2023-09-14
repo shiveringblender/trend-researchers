@@ -2,7 +2,7 @@ import dash
 from dash import dcc, html, Input, Output
 import pandas as pd
 import plotly.graph_objects as go
-from data import stock_data_dict
+from data import weeklyadj_stock_data_dict as stock_data_dict
 
 # Function to calculate average prices and standard deviations
 def calculate_metrics(data, event_date):
@@ -24,6 +24,7 @@ def calculate_metrics(data, event_date):
     }
 
 def update_chart(selected_stocks, plot_type, selected_event_date):
+    #selected_event_date= pd.to_datetime('2020-03-15')
     event_date = pd.to_datetime('2020-03-15')
     if selected_event_date:
         event_date = pd.to_datetime(selected_event_date)
