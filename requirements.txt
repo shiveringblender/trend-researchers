@@ -2,3 +2,8 @@ dash
 pandas
 gunicorn
 plotly
+yfinance
+keras
+tensorflow
+scikit-learn
+pandas-datareader

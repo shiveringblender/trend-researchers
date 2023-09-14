@@ -18,7 +18,8 @@ from tabs.sector_performance import callbacks as sector_performance_callbacks
 # from tabs.sentiment import callbacks as sentiment_callbacks
 from tabs.home import layout as home_layout
 from tabs.home import callbacks as home_callbacks
-
+from tabs.predict import layout as predict_layout
+from tabs.predict import callbacks as predict_callbacks
 
 
 
@@ -41,7 +42,7 @@ app.layout = html.Div([
          dcc.Tab(label='Sector Performance', value='sector_performance'),
          dcc.Tab(label='Sector Indicator', value='sector_indicator'),
          dcc.Tab(label='Event Analysis', value='event_analysis' ),
-                   
+         dcc.Tab(label='Prediction', value = 'predict')
     ]),
 
     html.Div(id='tab-content'),
@@ -73,6 +74,8 @@ def render_content(tab):
     #     return sector_indicator_layout.get_layout()
     elif tab == 'event_analysis':
         return events_layout.get_layout()
+    elif tab == 'predict':
+        return predict_layout.get_layout()
     else:
         return html.Div([]) 
 
@@ -119,6 +122,7 @@ def update_sector_performance_chart(selected_stocks, plot_type, tab):
     Output('ret-text', 'children'),
     Input('stock-dropdown', 'value'),
     Input('plot-type-dropdown', 'value'),
+    
     Input('event-date-picker', 'date'),
     State('tabs', 'value')
 )
@@ -129,23 +133,34 @@ def update_event_analysis_chart(selected_stocks, plot_type, event_date, tab):
     else:
         return {}, "", "", "", ""
 
-# @app.callback(
-#     Output('selected-chart', 'figure'),
-#     Output('chart1-text', 'children'),
-#     Output('chart2-text', 'children'),
-#     Output('chart3-text', 'children'),
-#     Output('chart4-text', 'children'),
-#     Input('stock-dropdown', 'value'),
-#     Input('plot-type-dropdown', 'value'),
-#     Input('event-date-picker', 'date'),
-#     State('tabs', 'value')
-# )
-# def update_event_analysis_chart(selected_stocks, plot_type, event_date, tab):
-#     if tab == 'event_analysis':
-#         # Call the relevant function to update the event_analysis tab components
-#         return events_callbacks.update_chart(selected_stocks, plot_type, event_date)
-#     else:
-#         return {}, "", "", "", ""
+@app.callback(
+    Output('stock-price-graph', 'figure'),    
+    Output('selected-stock-text', 'children'),
+    Input('stock-dropdown', 'value'),
+    Input('start-date-picker', 'date'),
+    Input('end-date-picker', 'date'),
+    Input('train-button', 'n_clicks'),
+    Input('future-button', 'n_clicks'),
+    State('tabs', 'value')
+)
+def update_predict_chart(selected_stock, start_date, end_date,train_click,future, tab):
+    if tab =='predict':
+        return predict_callbacks.update_chart( selected_stock, start_date, end_date, train_click, future)
+    else:
+        return ""
+    
+@app.callback(
+    Output('stock-dropdown', 'options'),
+    Input('stock-search', 'value'),
+    )
+def update_dropdown(stocksearch):
+    stock_names = predict_callbacks.fetch_stock_names(stocksearch)
+    if stock_names:
+        options = [{'label': symbol, 'value': symbol} for symbol in stock_names]
+        return options
+    else:
+        return []
+
     
 # @app.callback(
 #     Output('selected-chart', 'figure'),

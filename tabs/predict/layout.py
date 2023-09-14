@@ -1,0 +1,37 @@
+import dash
+from dash import dcc, html
+import pandas as pd
+#from tabs.predict.callbacks import fetch_stock_names
+
+def get_layout():
+    return html.Div([
+        # Content for Event Analysis
+        html.H2("Stock Prediction"),
+        html.P(""),
+        dcc.DatePickerSingle(
+        id='start-date-picker',
+        date=pd.to_datetime('2015-03-15'),
+        display_format='YYYY-MM-DD',
+        ),
+        dcc.DatePickerSingle(
+        id='end-date-picker',
+        date=pd.to_datetime('2020-03-15'),
+        display_format='YYYY-MM-DD',
+        ),
+        html.Button("Train", id="train-button"),
+        html.Button("Predict the next 30 days", id="future-button"),
+        dcc.Input(id= 'stock-search', type = "text", placeholder = "Search Stocks"),
+
+        dcc.Dropdown(
+            id='stock-dropdown',
+            options=[],
+            multi=False,
+            placeholder="Select a stock name"
+        ),
+        dcc.Graph(id='stock-price-graph'),
+
+        
+        html.Div(id='selected-stock-text', style={'fontSize': 22}),
+
+       
+    ])
