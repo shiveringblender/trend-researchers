@@ -78,10 +78,12 @@ def heatmap_sectors(sector_stock_data_dict, sector_names, symbols_to_include):
     )
     return fig
     
-def update_chart(selected_sectors, plot_type,event_date):
+def update_chart(selected_sectors, plot_type):
     if plot_type == 'heat':
-        return heatmap_sectors(sector_stock_data_dict, sector_names, selected_sectors),"","","",""
+        return heatmap_sectors(sector_stock_data_dict, sector_names, selected_sectors),"","",""
             
     elif plot_type == 'line': 
+        return line_plot(sector_stock_data_dict,selected_sectors,sector_names, "adfas"),"","",""
+    else:
         return line_plot(sector_stock_data_dict,selected_sectors,sector_names, "adfas"),"","","",""
            

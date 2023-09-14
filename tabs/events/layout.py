@@ -34,7 +34,7 @@ def get_layout():
         ),
 
         # Chart display area
-        dcc.Graph(id='selected-chart'),
+        dcc.Graph(id='events_selected-chart'),
 
         # Shared text for all charts
         html.Div([
@@ -43,15 +43,15 @@ def get_layout():
         ]),
 
         # Unique text for the Bar Chart
-        html.Div(id='chart1-text', style={'fontSize': 22}),
+        html.Div(id='bar-text', style={'fontSize': 22}),
 
         # Unique text for the Volatility Chart
-        html.Div(id='chart2-text', style={'fontSize': 22}),
+        html.Div(id='line-text', style={'fontSize': 22}),
 
         # Unique text for the Line Chart
-        html.Div(id='chart3-text', style={'fontSize': 22}),
+        html.Div(id='vol-text', style={'fontSize': 22}),
 
         # Unique text for the Cumulative Returns Chart
-        html.Div(id='chart4-text', style={'fontSize': 22}),
+        html.Div(id='ret-text', style={'fontSize': 22}),
        
     ])

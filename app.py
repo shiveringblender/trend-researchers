@@ -77,39 +77,92 @@ def render_content(tab):
         return html.Div([]) 
 
 
-# Define callback to update the graph based on user selections
+# @app.callback(
+#     Output('selected-chart', 'figure'),
+#     Output('chart1-text', 'children'),
+#     Output('chart2-text', 'children'),
+#     Output('chart3-text', 'children'),
+#     Output('chart4-text', 'children'),
+#     Input('stock-dropdown', 'value'),
+#     Input('plot-type-dropdown', 'value'),
+#     Input('event-date-picker', 'date'),
+#     State('tabs', 'value')
+# )
+# def update_home_chart(selected_stocks, plot_type, event_date, tab):
+#     if tab == 'home':
+#         # Call the relevant function to update the home tab components
+#         return home_callbacks.update_chart(selected_stocks, plot_type, event_date)
+#     else:
+#         return {}, "", "", "", ""
+    
 @app.callback(
-    Output('selected-chart', 'figure'),
-    Output('chart1-text', 'children'),
-    Output('chart2-text', 'children'),
-    Output('chart3-text', 'children'),
-    Output('chart4-text', 'children'),
+    Output('sector_selected-chart', 'figure'),
+    Output('sector_heat-text', 'children'),
+    Output('sector_line-text', 'children'),
+    Output('sector_line2-text', 'children'),
+    Input('stock-dropdown', 'value'),
+    Input('plot-type-dropdown', 'value'),
+    State('tabs', 'value')
+)
+def update_sector_performance_chart(selected_stocks, plot_type, tab):
+    if tab == 'sector_performance':
+        # Call the relevant function to update the sector_performance tab components
+        return sector_performance_callbacks.update_chart(selected_stocks, plot_type)
+    else:
+        return {}, "", "", "", ""
+    
+@app.callback(
+    Output('events_selected-chart', 'figure'),
+    Output('bar-text', 'children'),
+    Output('line-text', 'children'),
+    Output('vol-text', 'children'),
+    Output('ret-text', 'children'),
     Input('stock-dropdown', 'value'),
     Input('plot-type-dropdown', 'value'),
     Input('event-date-picker', 'date'),
     State('tabs', 'value')
-    )
-
-def update_chart(selected_stocks, plot_type,event_date, tab):
-    # if tab == 'home':
-    #     return home_callbacks.update_chart(selected_stocks, plot_type, selected_event_date)
-    # elif tab == 'correlation':
-    #     return correlation_callbacks.update_chart(selected_stocks, plot_type, selected_event_date)
-    # elif tab == 'economic':
-    #     return economic_callbacks.update_chart(selected_stocks, plot_type, selected_event_date)
-    # elif tab == 'international':
-    #     return international_callbacks.update_chart(selected_stocks, plot_type, selected_event_date)
-    # elif tab == 'sentiment':
-    #     return sentiment_callbacks.update_chart(selected_stocks, plot_type, selected_event_date)
-    if tab == 'sector_performance':
-        return sector_performance_callbacks.update_chart(selected_stocks, plot_type, event_date)
-    # elif tab == 'sector_indicator':
-    #     return sector_indicator_callbacks.update_chart(selected_stocks, plot_type, selected_event_date)
-    elif tab == 'event_analysis':
+)
+def update_event_analysis_chart(selected_stocks, plot_type, event_date, tab):
+    if tab == 'event_analysis':
+        # Call the relevant function to update the event_analysis tab components
         return events_callbacks.update_chart(selected_stocks, plot_type, event_date)
     else:
         return {}, "", "", "", ""
 
-
+# @app.callback(
+#     Output('selected-chart', 'figure'),
+#     Output('chart1-text', 'children'),
+#     Output('chart2-text', 'children'),
+#     Output('chart3-text', 'children'),
+#     Output('chart4-text', 'children'),
+#     Input('stock-dropdown', 'value'),
+#     Input('plot-type-dropdown', 'value'),
+#     Input('event-date-picker', 'date'),
+#     State('tabs', 'value')
+# )
+# def update_event_analysis_chart(selected_stocks, plot_type, event_date, tab):
+#     if tab == 'event_analysis':
+#         # Call the relevant function to update the event_analysis tab components
+#         return events_callbacks.update_chart(selected_stocks, plot_type, event_date)
+#     else:
+#         return {}, "", "", "", ""
+    
+# @app.callback(
+#     Output('selected-chart', 'figure'),
+#     Output('chart1-text', 'children'),
+#     Output('chart2-text', 'children'),
+#     Output('chart3-text', 'children'),
+#     Output('chart4-text', 'children'),
+#     Input('stock-dropdown', 'value'),
+#     Input('plot-type-dropdown', 'value'),
+#     Input('event-date-picker', 'date'),
+#     State('tabs', 'value')
+# )
+# def update_event_analysis_chart(selected_stocks, plot_type, event_date, tab):
+#     if tab == 'event_analysis':
+#         # Call the relevant function to update the event_analysis tab components
+#         return events_callbacks.update_chart(selected_stocks, plot_type, event_date)
+#     else:
+#         return {}, "", "", "", ""
 if __name__ == '__main__':
     app.run_server(debug=True)
