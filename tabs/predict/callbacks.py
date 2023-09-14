@@ -11,25 +11,25 @@ import plotly.graph_objs as go
 import plotly.express as px
 import requests
 
-def fetch_stock_names(stocksearch):
-    print(stocksearch)
-    if not stocksearch:
-        return None
+# def fetch_stock_names(stocksearch):
+#     print(stocksearch)
+#     if not stocksearch:
+#         return None
 
-    url = f'https://yahoo-finance127.p.rapidapi.com/search/{stocksearch}'
+#     url = f'https://yahoo-finance127.p.rapidapi.com/search/{stocksearch}'
 
-    headers = {
-        "X-RapidAPI-Key": "f772cb1126msh67c279955f8b42bp10c102jsn5c6f540f61ce",
-        "X-RapidAPI-Host": "yahoo-finance127.p.rapidapi.com"
-    }
+#     headers = {
+#         "X-RapidAPI-Key": "f772cb1126msh67c279955f8b42bp10c102jsn5c6f540f61ce",
+#         "X-RapidAPI-Host": "yahoo-finance127.p.rapidapi.com"
+#     }
 
-    response = requests.get(url, headers=headers)
-    if response.status_code == 200:
-        data= response.json()
-        stock_names = [entry["symbol"] for entry in data.get("quotes", [])]
-        print(stock_names)
-        return stock_names
-    return []
+#     response = requests.get(url, headers=headers)
+#     if response.status_code == 200:
+#         data= response.json()
+#         stock_names = [entry["symbol"] for entry in data.get("quotes", [])]
+#         print(stock_names)
+#         return stock_names
+#     return []
 
 def update_chart(selected_stock, start_date, end_date, button_press, future_button):
             
@@ -156,7 +156,7 @@ def update_chart(selected_stock, start_date, end_date, button_press, future_butt
                     predictions_temp = scaler.inverse_transform(np.reshape(predictions_temp, (1,1)))
 
                     real_predictions.append(predictions_temp[0][0])
-                trace_pred = go.Scatter(x=x_achse, y=real_predictions, mode='lines', name='Predictions for the next 14 Days')
+                trace_pred = go.Scatter(x=x_achse, y=real_predictions, mode='lines', name='Predictions for the next 30 Days')
                 layout = go.Layout(title='Predictions for the next 14 Days', xaxis=dict(title='Days'), yaxis=dict(title='Close Price USD ($)'))
                 fig = go.Figure(data=[trace_pred], layout=layout)
         return fig, ""

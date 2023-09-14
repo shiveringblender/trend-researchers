@@ -27,8 +27,8 @@ def get_layout():
             id='plot-type-dropdown',
             options=[
                 {'label': 'Heatmap', 'value': 'heat'},
-                {'label': 'Line Chart', 'value': 'line'},
-                {'label': 'Line Chart2', 'value': 'line2'},
+                {'label': 'Sector Closing Prices', 'value': 'line'},
+                {'label': 'Market Percentage', 'value': 'line2'},
             ],
             value='heat'  # Default plot type
         ),

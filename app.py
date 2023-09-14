@@ -8,14 +8,14 @@ from tabs.events import callbacks as events_callbacks
 # from tabs.correlation import callbacks as correlation_callbacks
 # from tabs.economic import layout as economic_layout
 # from tabs.economic import callbacks as economic_callbacks
-# from tabs.international import layout as international_layout
-# from tabs.international import callbacks as international_callbacks
-# from tabs.sector_indicator import layout as sector_indicator_layout
-# from tabs.sector_indicator import callbacks as sector_indicator_callbacks
+from tabs.international_economic import layout as international_economic_layout
+from tabs.international_economic import callbacks as international_economic_callbacks
+from tabs.economic_factors import layout as economic_factors_layout
+from tabs.economic_factors import callbacks as economic_factors_callbacks
 from tabs.sector_performance import layout as sector_performance_layout
 from tabs.sector_performance import callbacks as sector_performance_callbacks
-# from tabs.sentiment import layout as sentiment_layout
-# from tabs.sentiment import callbacks as sentiment_callbacks
+from tabs.sentiment import layout as sentiment_layout
+from tabs.sentiment import callbacks as sentiment_callbacks
 from tabs.home import layout as home_layout
 from tabs.home import callbacks as home_callbacks
 from tabs.predict import layout as predict_layout
@@ -36,11 +36,10 @@ app.layout = html.Div([
     dcc.Tabs(id="tabs", value='home', children=[
          dcc.Tab(label='Home', value='home'),
          dcc.Tab(label='Correlation Analysis', value='correlation'),
-         dcc.Tab(label='Economic Indicators', value='economic'),
-         dcc.Tab(label='International Correlation', value='international'),
+         dcc.Tab(label='International Correlation and Economic Indicators', value='international_economic'),
          dcc.Tab(label='Sentiment Analysis', value='sentiment'),
          dcc.Tab(label='Sector Performance', value='sector_performance'),
-         dcc.Tab(label='Sector Indicator', value='sector_indicator'),
+         dcc.Tab(label='Economic Factors', value='economic_factors'),
          dcc.Tab(label='Event Analysis', value='event_analysis' ),
          dcc.Tab(label='Prediction', value = 'predict')
     ]),
@@ -62,16 +61,14 @@ def render_content(tab):
         return home_layout.get_layout()
     # elif tab == 'correlation':
     #     return correlation_layout.get_layout()
-    # elif tab == 'economic':
-    #     return economic_layout.get_layout()
-    # elif tab == 'international':
-    #     return international_layout.get_layout()
-    # elif tab == 'sentiment':
-    #     return sentiment_layout.get_layout()
+    elif tab == 'international_economic':
+         return international_economic_layout.get_layout()
+    elif tab == 'sentiment':
+         return sentiment_layout.get_layout()
     elif tab == 'sector_performance':
         return sector_performance_layout.get_layout()
-    # elif tab == 'sector_indicator':
-    #     return sector_indicator_layout.get_layout()
+    elif tab == 'economic_factors':
+         return economic_factors_layout.get_layout()
     elif tab == 'event_analysis':
         return events_layout.get_layout()
     elif tab == 'predict':
@@ -80,24 +77,6 @@ def render_content(tab):
         return html.Div([]) 
 
 
-# @app.callback(
-#     Output('selected-chart', 'figure'),
-#     Output('chart1-text', 'children'),
-#     Output('chart2-text', 'children'),
-#     Output('chart3-text', 'children'),
-#     Output('chart4-text', 'children'),
-#     Input('stock-dropdown', 'value'),
-#     Input('plot-type-dropdown', 'value'),
-#     Input('event-date-picker', 'date'),
-#     State('tabs', 'value')
-# )
-# def update_home_chart(selected_stocks, plot_type, event_date, tab):
-#     if tab == 'home':
-#         # Call the relevant function to update the home tab components
-#         return home_callbacks.update_chart(selected_stocks, plot_type, event_date)
-#     else:
-#         return {}, "", "", "", ""
-    
 @app.callback(
     Output('sector_selected-chart', 'figure'),
     Output('sector_heat-text', 'children'),
@@ -136,7 +115,7 @@ def update_event_analysis_chart(selected_stocks, plot_type, event_date, tab):
 @app.callback(
     Output('stock-price-graph', 'figure'),    
     Output('selected-stock-text', 'children'),
-    Input('stock-dropdown', 'value'),
+    Input('nasdaq-dropdown', 'value'),
     Input('start-date-picker', 'date'),
     Input('end-date-picker', 'date'),
     Input('train-button', 'n_clicks'),
@@ -149,35 +128,29 @@ def update_predict_chart(selected_stock, start_date, end_date,train_click,future
     else:
         return ""
     
-@app.callback(
-    Output('stock-dropdown', 'options'),
-    Input('stock-search', 'value'),
-    )
-def update_dropdown(stocksearch):
-    stock_names = predict_callbacks.fetch_stock_names(stocksearch)
-    if stock_names:
-        options = [{'label': symbol, 'value': symbol} for symbol in stock_names]
-        return options
-    else:
-        return []
 
+@app.callback(
+    Output('sentiment-graph', 'figure'),
+    Input('days-dropdown', 'value'),
+    State('tabs', 'value')
+)
+def update_sentiment_chart(days, tab):
+    if tab =='sentiment':
+        return sentiment_callbacks.update_chart(days)
+    else:
+        return {} 
     
-# @app.callback(
-#     Output('selected-chart', 'figure'),
-#     Output('chart1-text', 'children'),
-#     Output('chart2-text', 'children'),
-#     Output('chart3-text', 'children'),
-#     Output('chart4-text', 'children'),
-#     Input('stock-dropdown', 'value'),
-#     Input('plot-type-dropdown', 'value'),
-#     Input('event-date-picker', 'date'),
-#     State('tabs', 'value')
-# )
-# def update_event_analysis_chart(selected_stocks, plot_type, event_date, tab):
-#     if tab == 'event_analysis':
-#         # Call the relevant function to update the event_analysis tab components
-#         return events_callbacks.update_chart(selected_stocks, plot_type, event_date)
-#     else:
-#         return {}, "", "", "", ""
+@app.callback(
+    Output('smp-chart', 'figure'),
+    Input('us-dropdown','value'),
+    State('tabs', 'value')
+)
+def update_economic_factors_chart(selected_charts, tab):
+    if tab =='economic_factors':
+        return economic_factors_callbacks.update_chart(selected_charts)
+    else:
+        return {} 
+
+
 if __name__ == '__main__':
     app.run_server(debug=True)
