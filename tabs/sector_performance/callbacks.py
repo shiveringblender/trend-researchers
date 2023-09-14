@@ -85,5 +85,5 @@ def update_chart(selected_sectors, plot_type):
     elif plot_type == 'line': 
         return line_plot(sector_stock_data_dict,selected_sectors,sector_names, "adfas"),"","",""
     else:
-        return line_plot(sector_stock_data_dict,selected_sectors,sector_names, "adfas"),"","","",""
+        return {}, "", "", ""
            
