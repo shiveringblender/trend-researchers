@@ -4,10 +4,6 @@ import pandas as pd
 # Import layout and callbacks for each tab
 from tabs.events import layout as events_layout
 from tabs.events import callbacks as events_callbacks
-# from tabs.correlation import layout as correlation_layout
-# from tabs.correlation import callbacks as correlation_callbacks
-# from tabs.economic import layout as economic_layout
-# from tabs.economic import callbacks as economic_callbacks
 from tabs.international_economic import layout as international_economic_layout
 from tabs.international_economic import callbacks as international_economic_callbacks
 from tabs.economic_factors import layout as economic_factors_layout
@@ -20,11 +16,12 @@ from tabs.home import layout as home_layout
 from tabs.home import callbacks as home_callbacks
 from tabs.predict import layout as predict_layout
 from tabs.predict import callbacks as predict_callbacks
+from dash_bootstrap_components.themes import BOOTSTRAP
 
 
 
 # Initialize the Dash app
-app = dash.Dash(__name__,suppress_callback_exceptions=True)
+app = dash.Dash(__name__,suppress_callback_exceptions=True,external_stylesheets=[BOOTSTRAP] )
 server = app.server
 
 
@@ -35,7 +32,6 @@ app.layout = html.Div([
 
     dcc.Tabs(id="tabs", value='home', children=[
          dcc.Tab(label='Home', value='home'),
-         dcc.Tab(label='Correlation Analysis', value='correlation'),
          dcc.Tab(label='International Correlation and Economic Indicators', value='international_economic'),
          dcc.Tab(label='Sentiment Analysis', value='sentiment'),
          dcc.Tab(label='Sector Performance', value='sector_performance'),
@@ -59,8 +55,6 @@ app.layout = html.Div([
 def render_content(tab):
     if tab == 'home':
         return home_layout.get_layout()
-    # elif tab == 'correlation':
-    #     return correlation_layout.get_layout()
     elif tab == 'international_economic':
          return international_economic_layout.get_layout()
     elif tab == 'sentiment':
