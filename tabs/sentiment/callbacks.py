@@ -4,12 +4,14 @@ from dash import Dash, dcc, html
 from dash.dependencies import Input, Output
 from data import sentimentdf
 
+
 def update_chart(days):
     date_df = pd.DataFrame({'day': days, 'month': 8, 'year': 2023})
     date_df['date'] = pd.to_datetime(date_df[['year', 'month', 'day']])
     days = date_df['date'].dt.strftime('%Y-%m-%d').tolist()
     print(days)
-    filtered_data = sentimentdf[sentimentdf["Date"].dt.strftime('%Y-%m-%d').isin(days)]
+    filtered_data = sentimentdf[sentimentdf["Date"].dt.strftime(
+        '%Y-%m-%d').isin(days)]
 
     trace1 = go.Scatter(
         x=filtered_data["Date"],
@@ -32,9 +34,11 @@ def update_chart(days):
         name='Sentiment Shifted'
     )
 
-
     fig = go.Figure(data=[trace1, trace2, trace3])
-    fig.update_yaxes(title_text='Normalized Value')
-    fig.update_xaxes(title_text='Date')
+    fig.update_layout(
+        title='Public Sentiment impacts Stock Price',  
+        xaxis_title='Date',
+        yaxis_title='Normalized Value'
+    )
 
     return fig
