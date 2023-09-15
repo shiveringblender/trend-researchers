@@ -41,8 +41,8 @@ def get_layout():
 
         # Shared text for all charts
         html.Div([
-            html.P("Research Question: How do specific events (like elections, major geopolitical events, product launches, earnings reports) impact stock prices?\
-                    The default date selected is the start of the covid-19 lockdowns but the date can be changed to look at whatever date interests you"),
+            html.P("Research Question: How do specific events (like elections, major geopolitical events, product launches, earnings reports) impact stock prices?", style={'fontSize': 30}),
+            html.P("The default date selected is the start of the covid-19 lockdowns but the date can be changed to look at whatever date interests you"),
             html.P("Brexit Referendum (2016):  The United Kingdom's decision to leave the European Union had a notable impact on both British and European stocks.\
                    For instance, the stock of British bank hsbc holdings went up significantly in the year after the referendum(23-06-2016). But the same stock also went down a lot after the actual Brexit ( 01-02-2020)."),
             html.P("       2016 U.S. Presidential Election: \

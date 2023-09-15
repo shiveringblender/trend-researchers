@@ -39,6 +39,8 @@ def get_layout():
 
         
         html.Div(id='selected-stock-text'),
+        html.Img(src='assets/apple_stock_prediction.png'),
+        html.Img(src='assets/apple30dayspred.png'),
 
        
     ])

@@ -28,7 +28,7 @@ def get_layout():
             
                 # Shared text for all charts
                 html.Div([
-                    html.P("Research Question: How does stock market performance relate to broader economic indicators like GDP growth, unemployment rates, or inflation rates?"),
+                    html.P("Research Question: How does stock market performance relate to broader economic indicators like GDP growth, unemployment rates, or inflation rates?", style={'fontSize': 30}),
                     html.P("In recent decades, the stock market, specifically the S&P 500 index, has emerged as a pivotal barometer of economic health in the US,\
                     reflecting and influencing the nation's financial well-being. This research inquiry aims to meticulously investigate the intricate interplay \
                     between S&P 500 stock market performance and key economic indicators. These indicators encompass fundamental metrics such as Gross Domestic Product (GDP) growth\

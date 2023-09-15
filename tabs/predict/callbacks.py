@@ -157,7 +157,7 @@ def update_chart(selected_stock, start_date, end_date, button_press, future_butt
 
                     real_predictions.append(predictions_temp[0][0])
                 trace_pred = go.Scatter(x=x_achse, y=real_predictions, mode='lines', name='Predictions for the next 30 Days')
-                layout = go.Layout(title='Predictions for the next 14 Days', xaxis=dict(title='Days'), yaxis=dict(title='Close Price USD ($)'))
+                layout = go.Layout(title='Predictions for the next 30 Days', xaxis=dict(title='Days'), yaxis=dict(title='Close Price USD ($)'))
                 fig = go.Figure(data=[trace_pred], layout=layout)
         return fig, ""
     
