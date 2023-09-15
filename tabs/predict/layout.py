@@ -37,7 +37,11 @@ def get_layout():
         # ),
         dcc.Graph(id='stock-price-graph'),
 
-        
+                html.Div([
+                    html.P("Research Question: How good is a neural network trained on past prices at predicting the future stock prices", style={'fontSize': 30}),
+                    html.P("For the AAPL example below the network was trained on 5 years of data and is pretty good at predicting the stock price. If you give it less data it performs worse, but either way it is not accurate enough to warrant basing your investments on it")
+
+                ]),
         html.Div(id='selected-stock-text'),
         html.Img(src='assets/apple_stock_prediction.png'),
         html.Img(src='assets/apple30dayspred.png'),
