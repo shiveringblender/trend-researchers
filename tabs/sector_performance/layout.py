@@ -21,7 +21,7 @@ def get_layout():
             options=[
                 {'label': 'Heatmap', 'value': 'heat'},
                 {'label': 'Sector Closing Prices', 'value': 'line'},
-                {'label': 'Market Percentage', 'value': 'line2'},
+          #      {'label': 'Market Percentage', 'value': 'line2'},
             ],
             value='heat'  # Default plot type
         ),
@@ -38,8 +38,9 @@ def get_layout():
             diversification, the identification of macroeconomic trends, forecasting market movements, pinpointing opportunities and risks, as well as considering industry\
             developments. Through the following visualizations, we have explored their role as valuable tools for comprehensively analyzing financial markets and optimizing \
             investment decisions. \n In 2015 the Global Industry Classification Standard (GICSS) reclassified the former 10 sectors into 11 sectors. This also needs to be \
-            considered for the interpretation.", style={'fontSize': 22}),
+            considered for the interpretation."),
         ]),
+        html.Img(src='assets/marketperc.png'),
 
         # Unique text for the Bar Chart
         html.Div(id='sector_heat-text', style={'fontSize': 22}),

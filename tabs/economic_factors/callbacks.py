@@ -37,6 +37,15 @@ def plot_time_series_with_events(sel):
                 line=dict(color="red", dash="dash"),
                 name=event['name']
             ))
+            fig.add_annotation(
+                x=event['date'],
+                y=1.02,  # You can adjust the vertical position of the label
+                text=event['name'],
+                showarrow=False,
+                xref="x",
+                yref="paper",
+                font=dict(color="red")  # You can adjust the label color
+            )
 
         # Set the title and labels
         fig.update_layout(

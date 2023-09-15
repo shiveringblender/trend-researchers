@@ -34,5 +34,7 @@ def update_chart(days):
 
 
     fig = go.Figure(data=[trace1, trace2, trace3])
+    fig.update_yaxes(title_text='Normalized Value')
+    fig.update_xaxes(title_text='Date')
 
     return fig

@@ -38,7 +38,7 @@ def get_layout():
         dcc.Graph(id='stock-price-graph'),
 
         
-        html.Div(id='selected-stock-text', style={'fontSize': 22}),
+        html.Div(id='selected-stock-text'),
 
        
     ])

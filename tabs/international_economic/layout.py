@@ -21,6 +21,7 @@ def get_layout():
                 After normalisation, the data was then plotted."""),
         html.Img(src='assets/correlation1.png'),
         html.Img(src='assets/correlation2.png'),
+        html.Img(src='assets/correlation3.png'),
         html.P("""It is noticeable with both indicators that two regimes often form, one high, low inflation and one high, low unemployment rate.
                 In order to find out whether one of the indicators has a certain predictive power, we have clustered the two regimes and calculated the average stock performance for each regime.
                 calculated the average stock performance for each regime; if it has no predictive power, the two values should be quite close to each other.

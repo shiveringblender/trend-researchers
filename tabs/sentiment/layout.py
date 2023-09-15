@@ -18,7 +18,7 @@ def get_layout():
 
         dcc.Graph(id='sentiment-graph'),
 
-        
+        html.P("Public sentiment seems to correlate with the share price. If public sentiment is bullish on Nvidia news, the stock price will also change in the future. What you can't predict is whether the stock price will fall or rise."),
 
        
     ])
