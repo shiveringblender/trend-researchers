@@ -7,7 +7,9 @@ from data import sector_names
 
 #line plot method
 
+heatsectortext = "Over all, the correlation between the sectors is quite high. If you take a closer look, you can see the following: \n Strong Positive Correlations: The sectors XLY (Consumer Discretionary), XLP (Consumer Staples), XLV (Health Care), XLI (Industrials), and XLB (Materials) all exhibit strong positive correlations. This means that they tend to rise or fall simultaneously. This could suggest that they are subject to similar macroeconomic influences or that investors perceive them similarly. \n Highest Correlation with XLB: The sector XLB (Materials) has the highest average correlation with the other sectors in this analysis. This indicates that XLB generally has a strong relationship with other sectors and may potentially serve as an indicator of broader market trends. \n Low Correlation with XLE: The energy sector (XLE) generally displays low correlations with most other sectors. This could be attributed to the unique influences driving the energy sector, such as crude oil prices and geopolitical factors. \n XLC (Communication Services) as an Outlier: The sector XLC (Communication Services) has a moderate correlation with most sectors but a low correlation with the energy sector (XLE). This could be attributed to specific factors affecting the communications industry, such as technological developments and corporate news."
 
+sectorclosetext = "As you can see, the prices of all sectors have risen over time, but in the last decade the difference between them has grown. For example, the financial sector's price rose very slowly and the technology sector quite quickly. In November 2015 the difference between those two sector prices was around 57$ and in August 20023 it was 140$. "
 def line_plot(data_dict, symbols_to_include, sector_names, title):
     event_date = pd.to_datetime('2015-11-11')
     traces = []
@@ -148,10 +150,10 @@ def heatmap_sectors(sector_stock_data_dict, sector_names, symbols_to_include):
     
 def update_chart(selected_sectors, plot_type):
     if plot_type == 'heat':
-        return heatmap_sectors(sector_stock_data_dict, sector_names, selected_sectors),"","",""
+        return heatmap_sectors(sector_stock_data_dict, sector_names, selected_sectors),heatsectortext,"",""
             
     elif plot_type == 'line': 
-        return line_plot(sector_stock_data_dict,selected_sectors,sector_names, "Sector Closing Prices over Time"),"","",""
+        return line_plot(sector_stock_data_dict,selected_sectors,sector_names, "Sector Closing Prices over Time"),"",sectorclosetext,""
     elif plot_type == "line2":
         return sector_valuation_percentage(selected_sectors, "Market Percentage of Sectors over Time"),"","",""
     else:

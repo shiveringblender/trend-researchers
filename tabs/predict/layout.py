@@ -8,7 +8,7 @@ def get_layout():
     return html.Div([
         # Content for Event Analysis
         html.H2("Stock Prediction"),
-        html.P(""),
+        html.P("On this page it is possible to select a stock and then train a neural network to make predictions for the next few days. All you have to do is select a share and the observation period. Afterwards, the network is trained by pressing the train button (this can take some time, as the computing power of the server is very weak). By clicking on predictions for the next days, you will receive a graph with the predictions for the next days."),
         dcc.DatePickerSingle(
         id='start-date-picker',
         date=pd.to_datetime('2015-03-15'),

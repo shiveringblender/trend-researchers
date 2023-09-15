@@ -13,7 +13,7 @@ from data import smp_data_dict as data_dict
 def plot_time_series_with_events(sel):
     # Define events
     events = [{'name': '2008 Financial Crisis', 'date': '2008-09-15'},
-              {'name': '2020 COVID-19 Pandemic', 'date': '2020-03-11'}]
+              {'name': 'First COVID-19 Pandemic Lockdowns', 'date': '2020-03-11'}]
 
     # Check if the selected symbol is in the data_dict
     if sel in data_dict:
