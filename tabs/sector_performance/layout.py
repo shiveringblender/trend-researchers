@@ -50,7 +50,7 @@ def get_layout():
 
         # Unique text for the Line Chart
         html.Div(id='sector_line2-text'),
-        html.Img(src='assets/marketperc.png'),
+        html.Img(src='assets/marketperc.png', style={'max-width':'100%'}),
         html.Div([
             html.P("The market percentage, a key metric in financial analysis, provides a comprehensive view of the market's composition by revealing the proportion that each sector holds within the total sum of sector prices. This gives us a deeper look into the performance of individual sectors, as it isolates their relative strength and influence on the broader economic landscape."),
         ]),
