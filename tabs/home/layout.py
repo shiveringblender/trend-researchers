@@ -7,7 +7,10 @@ def get_layout():
                 html.P("Use the tabs above to navigate to different sections of the dashboard."),
                 html.P("Our data sources are:"),
                 html.A("Yahoo Finance", href="https://de.finance.yahoo.com", target="_blank"),
+                html.P(""),
                 html.A("Alphavantage", href="https://alphavantage.co", target="_blank"),
+                html.P(""),
                 html.A("OECD Data", href="https://data.oecd.org/ ", target="_blank"),
+                html.P(""),
                 html.A("Worldbank Data", href="https://data.worldbank.org/ ", target="_blank"),
                 ])
